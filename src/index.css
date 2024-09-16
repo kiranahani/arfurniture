@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+#canvas {
+  width: 100%;
+  height: 85vh;
+}
+
+.navbar {
+  background-color: #333;
+  overflow-x: auto;
+  white-space: nowrap;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 19vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.navbar .item-container {
+  display: inline-flex; /* Use flexbox for better alignment */
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: flex-start; /* Align items at the top */
+  width: 120px; /* Fixed width to ensure alignment */
+  height: 160px; /* Adjust height to fit image and text */
+  padding: 10px;
+  box-sizing: border-box; /* Include padding in element's total width/height */
+}
+
+.navbar .button-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Ensure image fits within the container */
+  border-radius: 15px; /* Apply rounded corners */
+}
+
+.navbar .item-container p {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #fff; /* White text */
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  white-space: normal; /* Allow text to wrap to the next line */
+  word-wrap: break-word; /* Break long words if necessary */
+  width: 100%; /* Ensure text takes up full width of the container */
+}
+
+.navbar .button-image:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.scanning-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.scanning-message img {
+  display: block;
+  margin: 0 auto;
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+  animation: scaleImage 3s infinite; /* Subtle scaling animation */
+}
+
+.typing-text {
+  margin-top: 10px;
+  overflow: hidden; /* Ensures text doesn't overflow */
+  white-space: nowrap;
+  border-right: 4px solid white;
+  font-family: 'Poppins', sans-serif;
+  animation: typing 5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+  animation-delay: 2s;
+}
+
+/* Keyframes for typing animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Keyframes for caret blinking */
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: white; }
+}
+
+/* Keyframes for image scaling */
+@keyframes scaleImage {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+.clicked {
+  border: 2px solid white;
+  color: white;
+  border-style: solid;
+  border-radius: 8px;
+}
+
+.ar-button-hidden {
+  display: none;
+}
+.back-button {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10; /* Ensure it's on top of other elements */
+}
+
+.back-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
