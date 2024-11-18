@@ -42,14 +42,14 @@ function App() {
   let controller;
   const [hitTestVisible, setHitTestVisible] = useState(true);
 
-  const handleBackButtonClick = () => {
-    const referrer = document.referrer;
-    if (referrer && referrer.includes("loettaliving.com")) {
-      window.location.href = referrer; // Go back to the referring URL
+  function handleBackButton() {
+    if (window.history.length > 1) {
+      window.history.back(); // Kembali ke halaman sebelumnya jika ada riwayat
     } else {
-      window.location.href = "https://loettaliving.com/"; // Default to home page
+      window.location.href = 'https://loettaliving.com'; // Arahkan ke halaman utama jika tidak ada riwayat
     }
-  };
+  }
+  
 
   const checkReferrerAndSetModel = () => {
     const referrer = document.referrer;
@@ -351,7 +351,7 @@ function App() {
       <canvas id="canvas"></canvas>
 
       {/* Back Button */}
-      <button className="back-button" onClick={handleBackButtonClick}>
+      <button className="back-button" onClick={handleBackButton}>
         Back
       </button>
 
