@@ -121,7 +121,6 @@ function App() {
 
   useEffect(() => {
     init();
-    checkReferrerAndSetModel();
     setupFurnitureSelection();
     animate();
   }, []);
@@ -189,7 +188,9 @@ function App() {
   }
 
   let selectedObject = null;
-
+  document.addEventListener("DOMContentLoaded", () => {
+    checkReferrerAndSetModel(); // Cek dan atur model berdasarkan referrer
+  });
   function onSelect() {
     const currentTime = performance.now();
   
