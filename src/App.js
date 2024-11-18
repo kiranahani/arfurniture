@@ -121,6 +121,7 @@ function App() {
 
   useEffect(() => {
     init();
+    checkReferrerAndSetModel();
     setupFurnitureSelection();
     animate();
   }, []);
