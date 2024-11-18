@@ -15,10 +15,6 @@ function App() {
   let orbitEnabled = false; // Flag untuk kontrol orbit
   let lastSpawnedModel = null; // Variabel untuk menyimpan objek terakhir yang di-spawn
 
-  const handleBackButtonClick = () => {
-    window.location.href = "https://loettaliving.com/";
-  };
-
   let models = [
     "./Rheina-Chair.glb",
     "./Round-Table.glb",
@@ -45,6 +41,83 @@ function App() {
 
   let controller;
   const [hitTestVisible, setHitTestVisible] = useState(true);
+
+  const handleBackButtonClick = () => {
+    const referrer = document.referrer;
+    if (referrer && referrer.includes("loettaliving.com")) {
+      window.location.href = referrer; // Go back to the referring URL
+    } else {
+      window.location.href = "https://loettaliving.com/"; // Default to home page
+    }
+  };
+
+  const checkReferrerAndSetModel = () => {
+    const referrer = document.referrer;
+    const productURLs = [
+      "https://loettaliving.com/product/renata-side-table",
+      "https://loettaliving.com/product/jungle-side-table",
+      "https://loettaliving.com/product/deva-side-table",
+      "https://loettaliving.com/product/renata-square-dining-table",
+      "https://loettaliving.com/product/renata-big-recta-dt",
+      "https://loettaliving.com/product/rama-small-dt",
+      "https://loettaliving.com/product/rama-big-dit",
+      "https://loettaliving.com/product/round-tabble-2a",
+      "https://loettaliving.com/product/renata-square-cofe-tabble",
+      "https://loettaliving.com/product/renata-recta-cofe-table",
+      "https://loettaliving.com/product/round-tabble",
+      "https://loettaliving.com/product/dhea-recta-cofe-table",
+      "https://loettaliving.com/product/almira-bar-tabble",
+      "https://loettaliving.com/product/lulu-2-seater-sofa",
+      "https://loettaliving.com/product/loetta-sofa",
+      "https://loettaliving.com/product/lula-tabble",
+      "https://loettaliving.com/product/rheina-chair",
+      "https://loettaliving.com/product/lulu-chair",
+      "https://loettaliving.com/product/lula-chair",
+      "https://loettaliving.com/product/lily-side-chair",
+      "https://loettaliving.com/product/lala-chair",
+      "https://loettaliving.com/product/altha-chair",
+      "https://loettaliving.com/product/alma-chair",
+      "https://loettaliving.com/product/indian-bar-stool",
+      "https://loettaliving.com/product/high-back-stool",
+    ];
+
+    const urlToIndex = {
+      "https://loettaliving.com/product/renata-side-table": 14,
+      "https://loettaliving.com/product/jungle-side-table": 12,
+      "https://loettaliving.com/product/deva-side-table": 8,
+      "https://loettaliving.com/product/renata-square-dining-table": 2,
+      "https://loettaliving.com/product/renata-big-recta-dt": 5,
+      "https://loettaliving.com/product/rama-small-dt": 6,
+      "https://loettaliving.com/product/rama-big-dit": 7,
+      "https://loettaliving.com/product/round-tabble-2a": 1,
+      "https://loettaliving.com/product/renata-square-cofe-tabble": 3,
+      "https://loettaliving.com/product/renata-recta-cofe-table": 4,
+      "https://loettaliving.com/product/round-tabble": 9,
+      "https://loettaliving.com/product/dhea-recta-cofe-table": 10,
+      "https://loettaliving.com/product/almira-bar-tabble": 11,
+      "https://loettaliving.com/product/lulu-2-seater-sofa": 13,
+      "https://loettaliving.com/product/loetta-sofa": 15,
+      "https://loettaliving.com/product/lula-tabble": 16,
+      "https://loettaliving.com/product/rheina-chair": 0,
+      "https://loettaliving.com/product/lulu-chair": 17,
+      "https://loettaliving.com/product/lula-chair": 18,
+      "https://loettaliving.com/product/lily-side-chair": 19,
+      "https://loettaliving.com/product/lala-chair": 20,
+      "https://loettaliving.com/product/altha-chair": 21,
+      "https://loettaliving.com/product/alma-chair": 22,
+      "https://loettaliving.com/product/indian-bar-stool": 23,
+      "https://loettaliving.com/product/high-back-stool": 24,
+    };
+
+    if (productURLs.includes(referrer)) {
+      const modelIndex = urlToIndex[referrer];
+      itemSelectedIndex = modelIndex; // Automatically select the model based on the referrer URL
+    } else {
+      // If not from a specific URL, user needs to select the object
+      itemSelectedIndex = -1;
+    }
+  };
+
 
   useEffect(() => {
     init();
@@ -118,32 +191,39 @@ function App() {
 
   function onSelect() {
     const currentTime = performance.now();
+  
+    // Pastikan objek belum dipilih ulang
+    if (!items[itemSelectedIndex] || orbitEnabled) {
+      return; // Jika OrbitControls aktif, hentikan proses
+    }
+  
     if (reticle.visible && currentTime - tapStartTime < TAP_THRESHOLD) {
-      // Check if tap is within the threshold
+      // Clone model baru
       let newModel = items[itemSelectedIndex].clone();
       newModel.visible = true;
-
+  
+      // Tempatkan objek pada posisi reticle
       reticle.matrix.decompose(newModel.position, newModel.quaternion, newModel.scale);
       let scaleFactor = modelScaleFactor[itemSelectedIndex];
       newModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
-
+  
       scene.add(newModel);
-
+  
       // Set objek yang dipilih ke objek baru
       selectedObject = newModel;
-
+  
       // Matikan hit test setelah objek di-spawn
-      // hitTestSourceRequested = false;
-      // hitTestSource = null;
-      // reticle.visible = false;
-
+      reticle.visible = false;
+      hitTestSourceRequested = false;
+  
       // Aktifkan OrbitControls
-      orbitEnabled = true;
-      controls.enabled = true;
-      controls.target.copy(newModel.position);
-      controls.update();
+       orbitEnabled = true;
+       controls.enabled = true;
+       controls.target.copy(newModel.position);
+       controls.update();
     }
   }
+  
 
   // Tambahkan event listener untuk touchmove untuk rotasi objek
   let initialX = 0;
@@ -188,13 +268,25 @@ function App() {
   document.addEventListener("touchend", onTouchEnd);
 
   const onClicked = (e, selectItem, index) => {
+    // Reset OrbitControls
+    orbitEnabled = false;
+    controls.enabled = false;
+  
+    // Set indeks objek yang dipilih
     itemSelectedIndex = index;
+  
+    // Update UI
     for (let i = 0; i < models.length; i++) {
       const el = document.querySelector(`#item` + i);
       el.classList.remove("clicked");
     }
     e.target.classList.add("clicked");
+  
+    // Tampilkan kembali reticle
+    reticle.visible = true;
+    hitTestSourceRequested = true; // Aktifkan kembali hit test
   };
+  
 
   function setupFurnitureSelection() {
     for (let i = 0; i < models.length; i++) {
@@ -211,24 +303,6 @@ function App() {
     }
   }
 
-  function addMoreObjects() {
-    console.log("Adding more objects...");
-    console.log("Initial reticle visibility:", reticle.visible);
-
-    // Reset status orbit control dan selected object
-    orbitEnabled = false;
-    controls.enabled = false;
-    selectedObject = null; // Hapus referensi ke objek yang terakhir dipilih
-
-    // Reset hit test untuk menampilkan reticle kembali
-    hitTestSourceRequested = false;
-    hitTestSource = null;
-
-    // Tampilkan reticle untuk hit test lagi
-    reticle.visible = true; // Pastikan reticle visibel
-    setHitTestVisible(true); // Sembunyikan teks scanning
-    console.log("Updated reticle visibility:", reticle.visible);
-  }
 
   function animate() {
     renderer.setAnimationLoop(render);
@@ -238,39 +312,39 @@ function App() {
     if (frame) {
       const referenceSpace = renderer.xr.getReferenceSpace();
       const session = renderer.xr.getSession();
-
-      // Jika hit test belum diminta dan kontrol orbit tidak aktif
-      if (hitTestSourceRequested === false && !orbitEnabled) {
+  
+      if (!orbitEnabled && hitTestSourceRequested === false) {
         session.requestReferenceSpace("viewer").then(function (referenceSpace) {
           session.requestHitTestSource({ space: referenceSpace }).then(function (source) {
             hitTestSource = source;
           });
         });
-
+  
         session.addEventListener("end", function () {
           hitTestSourceRequested = false;
           hitTestSource = null;
         });
-
+  
         hitTestSourceRequested = true;
       }
-
-      if (hitTestSource) {
+  
+      if (hitTestSource && !orbitEnabled) {
         const hitTestResults = frame.getHitTestResults(hitTestSource);
-
+  
         if (hitTestResults.length) {
           const hit = hitTestResults[0];
           reticle.visible = true;
           reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
-          setHitTestVisible(false); // Sembunyikan teks scanning
+          setHitTestVisible(false);
         } else {
           reticle.visible = false;
         }
       }
     }
-
+  
     renderer.render(scene, camera);
   }
+  
 
   return (
     <div className="App">
@@ -287,10 +361,7 @@ function App() {
         </div>
       )}
 
-      {/* Button for adding more objects */}
-      <button className="add-more-button" onClick={addMoreObjects}>
-        Add More
-      </button>
+
     </div>
   );
 }
