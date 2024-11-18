@@ -189,43 +189,57 @@ function App() {
 
   let selectedObject = null;
   document.addEventListener("DOMContentLoaded", () => {
-    checkReferrerAndSetModel(); // Cek dan atur model berdasarkan referrer
-  });
-  function onSelect() {
-    const currentTime = performance.now();
-  
-    // Pastikan objek belum dipilih ulang
-    if (!items[itemSelectedIndex] || orbitEnabled) {
-      return; // Jika OrbitControls aktif, hentikan proses
-    }
-  
-    if (reticle.visible && currentTime - tapStartTime < TAP_THRESHOLD) {
-      // Clone model baru
-      let newModel = items[itemSelectedIndex].clone();
-      newModel.visible = true;
-  
-      // Tempatkan objek pada posisi reticle
-      reticle.matrix.decompose(newModel.position, newModel.quaternion, newModel.scale);
-      let scaleFactor = modelScaleFactor[itemSelectedIndex];
-      newModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
-  
-      scene.add(newModel);
-  
-      // Set objek yang dipilih ke objek baru
-      selectedObject = newModel;
-  
-      // Matikan hit test setelah objek di-spawn
-      reticle.visible = false;
-      hitTestSourceRequested = false;
-  
-      // Aktifkan OrbitControls
-       orbitEnabled = true;
-       controls.enabled = true;
-       controls.target.copy(newModel.position);
-       controls.update();
+    checkReferrerAndSetModel();
+    setSelectedModelFromURL(); // Memanggil fungsi untuk set model dari URL
+});
+
+function setSelectedModelFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const modelIndex = urlParams.get('model'); // Mengambil parameter "model" dari URL
+
+  if (modelIndex) {
+    // Pastikan index dalam batas yang valid
+    const index = parseInt(modelIndex);
+    if (index >= 0 && index < items.length) {
+      itemSelectedIndex = index; // Set itemSelectedIndex sesuai dengan parameter dari URL
     }
   }
-  
+}
+
+function onSelect() {
+  const currentTime = performance.now();
+
+  // Pastikan objek belum dipilih ulang
+  if (!items[itemSelectedIndex] || orbitEnabled) {
+    return; // Jika OrbitControls aktif, hentikan proses
+  }
+
+  if (reticle.visible && currentTime - tapStartTime < TAP_THRESHOLD) {
+    // Clone model baru
+    let newModel = items[itemSelectedIndex].clone();
+    newModel.visible = true;
+
+    // Tempatkan objek pada posisi reticle
+    reticle.matrix.decompose(newModel.position, newModel.quaternion, newModel.scale);
+    let scaleFactor = modelScaleFactor[itemSelectedIndex];
+    newModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+    scene.add(newModel);
+
+    // Set objek yang dipilih ke objek baru
+    selectedObject = newModel;
+
+    // Matikan hit test setelah objek di-spawn
+    reticle.visible = false;
+    hitTestSourceRequested = false;
+
+    // Aktifkan OrbitControls
+    orbitEnabled = true;
+    controls.enabled = true;
+    controls.target.copy(newModel.position);
+    controls.update();
+  }
+}
 
   // Tambahkan event listener untuk touchmove untuk rotasi objek
   let initialX = 0;
