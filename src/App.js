@@ -94,7 +94,6 @@ function App() {
     };
   
 
-
   useEffect(() => {
     init();
     setupFurnitureSelection();
