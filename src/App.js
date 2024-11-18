@@ -98,10 +98,6 @@ function App() {
     init();
     setupFurnitureSelection();
     checkReferrerAndSetModel();
-    if (itemSelectedIndex !== -1) {
-      // Tampilkan model yang sesuai
-      renderModel(itemSelectedIndex);
-    }
     animate();
   }, []);
 
