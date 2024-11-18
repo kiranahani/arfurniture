@@ -51,73 +51,55 @@ function App() {
   }
   
 
-  const checkReferrerAndSetModel = () => {
-    const referrer = document.referrer;
-    const productURLs = [
-      "https://loettaliving.com/product/renata-side-table",
-      "https://loettaliving.com/product/jungle-side-table",
-      "https://loettaliving.com/product/deva-side-table",
-      "https://loettaliving.com/product/renata-square-dining-table",
-      "https://loettaliving.com/product/renata-big-recta-dt",
-      "https://loettaliving.com/product/rama-small-dt",
-      "https://loettaliving.com/product/rama-big-dit",
-      "https://loettaliving.com/product/round-tabble-2a",
-      "https://loettaliving.com/product/renata-square-cofe-tabble",
-      "https://loettaliving.com/product/renata-recta-cofe-table",
-      "https://loettaliving.com/product/round-tabble",
-      "https://loettaliving.com/product/dhea-recta-cofe-table",
-      "https://loettaliving.com/product/almira-bar-tabble",
-      "https://loettaliving.com/product/lulu-2-seater-sofa",
-      "https://loettaliving.com/product/loetta-sofa",
-      "https://loettaliving.com/product/lula-tabble",
-      "https://loettaliving.com/product/rheina-chair",
-      "https://loettaliving.com/product/lulu-chair",
-      "https://loettaliving.com/product/lula-chair",
-      "https://loettaliving.com/product/lily-side-chair",
-      "https://loettaliving.com/product/lala-chair",
-      "https://loettaliving.com/product/altha-chair",
-      "https://loettaliving.com/product/alma-chair",
-      "https://loettaliving.com/product/indian-bar-stool",
-      "https://loettaliving.com/product/high-back-stool",
-    ];
+  document.addEventListener("DOMContentLoaded", () => {
+    checkReferrerAndSetModel();
+    setSelectedModelFromURL(); // Memanggil fungsi untuk set model dari URL
+});
 
-    const urlToIndex = {
-      "https://loettaliving.com/product/renata-side-table": 14,
-      "https://loettaliving.com/product/jungle-side-table": 12,
-      "https://loettaliving.com/product/deva-side-table": 8,
-      "https://loettaliving.com/product/renata-square-dining-table": 2,
-      "https://loettaliving.com/product/renata-big-recta-dt": 5,
-      "https://loettaliving.com/product/rama-small-dt": 6,
-      "https://loettaliving.com/product/rama-big-dit": 7,
-      "https://loettaliving.com/product/round-tabble-2a": 1,
-      "https://loettaliving.com/product/renata-square-cofe-tabble": 3,
-      "https://loettaliving.com/product/renata-recta-cofe-table": 4,
-      "https://loettaliving.com/product/round-tabble": 9,
-      "https://loettaliving.com/product/dhea-recta-cofe-table": 10,
-      "https://loettaliving.com/product/almira-bar-tabble": 11,
-      "https://loettaliving.com/product/lulu-2-seater-sofa": 13,
-      "https://loettaliving.com/product/loetta-sofa": 15,
-      "https://loettaliving.com/product/lula-tabble": 16,
-      "https://loettaliving.com/product/rheina-chair": 0,
-      "https://loettaliving.com/product/lulu-chair": 17,
-      "https://loettaliving.com/product/lula-chair": 18,
-      "https://loettaliving.com/product/lily-side-chair": 19,
-      "https://loettaliving.com/product/lala-chair": 20,
-      "https://loettaliving.com/product/altha-chair": 21,
-      "https://loettaliving.com/product/alma-chair": 22,
-      "https://loettaliving.com/product/indian-bar-stool": 23,
-      "https://loettaliving.com/product/high-back-stool": 24,
-    };
-
-    if (productURLs.includes(referrer)) {
-      const modelIndex = urlToIndex[referrer];
-      itemSelectedIndex = modelIndex; // Automatically select the model based on the referrer URL
-    } else {
-      // If not from a specific URL, user needs to select the object
-      itemSelectedIndex = -1;
-    }
+function setSelectedModelFromURL() {
+  // Ambil URL halaman saat ini
+  const currentURL = window.location.href;
+  
+  // Pemetaan URL ke index model
+  const urlToIndex = {
+    "https://loettaliving.com/product/renata-side-table": 14,
+    "https://loettaliving.com/product/jungle-side-table": 12,
+    "https://loettaliving.com/product/deva-side-table": 8,
+    "https://loettaliving.com/product/renata-square-dining-table": 2,
+    "https://loettaliving.com/product/renata-big-recta-dt": 5,
+    "https://loettaliving.com/product/rama-small-dt": 6,
+    "https://loettaliving.com/product/rama-big-dit": 7,
+    "https://loettaliving.com/product/round-tabble-2a": 1,
+    "https://loettaliving.com/product/renata-square-cofe-tabble": 3,
+    "https://loettaliving.com/product/renata-recta-cofe-table": 4,
+    "https://loettaliving.com/product/round-tabble": 9,
+    "https://loettaliving.com/product/dhea-recta-cofe-table": 10,
+    "https://loettaliving.com/product/almira-bar-tabble": 11,
+    "https://loettaliving.com/product/lulu-2-seater-sofa": 13,
+    "https://loettaliving.com/product/loetta-sofa": 15,
+    "https://loettaliving.com/product/lula-tabble": 16,
+    "https://loettaliving.com/product/rheina-chair": 0,
+    "https://loettaliving.com/product/lulu-chair": 17,
+    "https://loettaliving.com/product/lula-chair": 18,
+    "https://loettaliving.com/product/lily-side-chair": 19,
+    "https://loettaliving.com/product/lala-chair": 20,
+    "https://loettaliving.com/product/altha-chair": 21,
+    "https://loettaliving.com/product/alma-chair": 22,
+    "https://loettaliving.com/product/indian-bar-stool": 23,
+    "https://loettaliving.com/product/high-back-stool": 24,
   };
 
+  // Cari index berdasarkan URL
+  const index = urlToIndex[currentURL];
+  
+  if (index !== undefined && index >= 0 && index < items.length) {
+    // Set itemSelectedIndex sesuai dengan URL
+    itemSelectedIndex = index;
+    console.log(`Selected model index from URL: ${itemSelectedIndex}`);
+  } else {
+    console.log("Model index not found or URL is invalid");
+  }
+}
 
   useEffect(() => {
     init();
@@ -188,23 +170,6 @@ function App() {
   }
 
   let selectedObject = null;
-  document.addEventListener("DOMContentLoaded", () => {
-    checkReferrerAndSetModel();
-    setSelectedModelFromURL(); // Memanggil fungsi untuk set model dari URL
-});
-
-function setSelectedModelFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const modelIndex = urlParams.get('model'); // Mengambil parameter "model" dari URL
-
-  if (modelIndex) {
-    // Pastikan index dalam batas yang valid
-    const index = parseInt(modelIndex);
-    if (index >= 0 && index < items.length) {
-      itemSelectedIndex = index; // Set itemSelectedIndex sesuai dengan parameter dari URL
-    }
-  }
-}
 
 function onSelect() {
   const currentTime = performance.now();
