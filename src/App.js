@@ -36,7 +36,7 @@ function App() {
     "./LoettaSofa.glb"
   ];
 
-  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   let items = [];
   let itemSelectedIndex = 0;
 
