@@ -184,30 +184,6 @@ function setSelectedModelFromURL() {
   }
 
   let selectedObject = null;
-  function resetScene() {
-    // Hapus semua objek dalam scene
-    while (scene.children.length > 0) {
-      let child = scene.children[0];
-      
-      // Menghapus objek jika objek tersebut adalah model yang di-clone atau bahan lainnya
-      if (child.geometry) {
-        child.geometry.dispose();
-      }
-      
-      if (child.material) {
-        child.material.dispose();
-      }
-      
-      scene.remove(child);  // Hapus child
-    }
-  
-    // Inisialisasi ulang kamera, renderer, dan kontrol
-    init();
-  
-    // Pastikan untuk memuat model baru setelah scene di-reset
-    onSelect();
-  }
-  
 
 function onSelect() {
   const currentTime = performance.now();
@@ -373,7 +349,6 @@ function onSelect() {
       <button className="back-button" onClick={handleBackButton}>
         Back
       </button>
-      <button className="delete-button" onClick={resetScene}>Reset Scene</button>
 
       {hitTestVisible && (
         <div className="scanning-message">
