@@ -282,20 +282,6 @@ function onSelect() {
     hitTestSourceRequested = true; // Aktifkan kembali hit test
   };
   
-  document.getElementById("deleteButton").addEventListener("click", deleteObject);
-
-function deleteObject() {
-  // Check if there's a selected object
-  if (selectedObject) {
-    // Remove the selected object from the scene
-    scene.remove(selectedObject);
-    // Set the selected object to null after deletion
-    selectedObject = null;
-    console.log("Object deleted.");
-  } else {
-    console.log("No object selected to delete.");
-  }
-}
 
   function setupFurnitureSelection() {
     for (let i = 0; i < models.length; i++) {
