@@ -53,15 +53,34 @@ function App() {
   
 
   document.addEventListener("DOMContentLoaded", () => {
-    checkReferrerAndSetModel();
-    setSelectedModelFromURL(); // Memanggil fungsi untuk set model dari URL
+    setupItemListeners(); // Tambahkan listener pada semua tombol
+    setSelectedModelFromURL(); // Aktifkan model berdasarkan URL
 });
 
+function setupItemListeners() {
+  const itemContainers = document.querySelectorAll(".item-container img"); // Ambil semua elemen <img>
+  itemContainers.forEach((img) => {
+    img.addEventListener("click", () => {
+      const itemId = img.id.replace("item", ""); // Ambil ID item dari "itemX"
+      const index = parseInt(itemId, 10); // Konversi ke angka
+      selectModelByIndex(index);
+    });
+  });
+}
+
+function selectModelByIndex(index) {
+  if (index >= 0 && index < items.length) {
+    itemSelectedIndex = index; // Set index yang dipilih
+    console.log(`Model selected: ${index}`);
+    onSelect(); // Aktifkan logika untuk menampilkan model
+  } else {
+    console.error("Invalid model index:", index);
+  }
+}
+
 function setSelectedModelFromURL() {
-  // Ambil URL halaman saat ini
   const currentURL = window.location.href;
   
-  // Pemetaan URL ke index model
   const urlToIndex = {
     "https://loettaliving.com/product/renata-side-table": 14,
     "https://loettaliving.com/product/jungle-side-table": 12,
@@ -90,15 +109,9 @@ function setSelectedModelFromURL() {
     "https://loettaliving.com/product/high-back-stool": 24,
   };
 
-  // Cari index berdasarkan URL
   const index = urlToIndex[currentURL];
-  
-  if (index !== undefined && index >= 0 && index < items.length) {
-    // Set itemSelectedIndex sesuai dengan URL
-    itemSelectedIndex = index;
-    console.log(`Selected model index from URL: ${itemSelectedIndex}`);
-  } else {
-    console.log("Model index not found or URL is invalid");
+  if (index !== undefined) {
+    selectModelByIndex(index); // Pilih model berdasarkan URL
   }
 }
 
