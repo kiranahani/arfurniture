@@ -185,6 +185,7 @@ function setSelectedModelFromURL() {
 
   let selectedObject = null;
 
+
 function onSelect() {
   const currentTime = performance.now();
 
@@ -222,65 +223,97 @@ function onSelect() {
 
   // Tambahkan event listener untuk touchmove untuk rotasi objek
   let initialX = 0;
-  let tapStartTime = 0; // Time when touch starts
-  const TAP_THRESHOLD = 200; // Maximum duration in milliseconds for a tap
+let tapStartTime = 0; // Time when touch starts
+let lastTapTime = 0; // Time of the last tap
+let tapCount = 0; // Count of taps
+const TAP_THRESHOLD = 200; // Maximum duration in milliseconds for a tap
+const DOUBLE_TAP_INTERVAL = 300; // Maximum time interval between taps for double-tap
+let isDragging = false; // Untuk melacak apakah gesture adalah drag
 
-  function onTouchMove(event) {
-    if (selectedObject) {
-      let deltaX = event.touches[0].pageX - initialX;
-      initialX = event.touches[0].pageX;
+function onTouchStart(event) {
+  initialX = event.touches[0].pageX;
+  tapStartTime = performance.now(); // Record start time of the touch
+  isDragging = false; // Reset status dragging
+}
 
-      // Rotasi objek berdasarkan geser jari pengguna
-      selectedObject.rotation.y += deltaX * 0.01; // Adjust multiplier for rotation speed
-    }
-  }
-
-  function onTouchStart(event) {
+function onTouchMove(event) {
+  if (selectedObject) {
+    isDragging = true; // Deteksi pergerakan jari
+    let deltaX = event.touches[0].pageX - initialX;
     initialX = event.touches[0].pageX;
-    tapStartTime = performance.now(); // Record start time of the touch
+
+    // Rotasi objek berdasarkan geser jari pengguna
+    selectedObject.rotation.y += deltaX * 0.01; // Adjust multiplier for rotation speed
   }
+}
 
-  function onTouchEnd(event) {
-    const tapEndTime = performance.now();
-    const tapDuration = tapEndTime - tapStartTime;
+function onTouchEnd(event) {
+  const tapEndTime = performance.now();
+  const tapDuration = tapEndTime - tapStartTime;
 
-    if (tapDuration < TAP_THRESHOLD) {
-      // Consider this as a tap event
-      handleTapEvent(event);
+  if (!isDragging && tapDuration < TAP_THRESHOLD) {
+    // Hitung interval sejak tap terakhir
+    const timeSinceLastTap = tapEndTime - lastTapTime;
+
+    if (timeSinceLastTap < DOUBLE_TAP_INTERVAL) {
+      tapCount++; // Tambahkan jumlah tap
+    } else {
+      tapCount = 1; // Reset jika terlalu lama sejak tap terakhir
     }
 
-    initialX = 0;
+    lastTapTime = tapEndTime; // Update waktu tap terakhir
+
+    if (tapCount === 2) {
+      // Jika double-tap terdeteksi
+      handleDoubleTapEvent(event);
+    }
+  } else {
+    console.log("Gesture dianggap sebagai drag atau tap lama.");
   }
 
-  function handleTapEvent(event) {
-    // You can add additional logic here if needed for tap-specific actions
-    console.log("Tap detected.");
-  }
+  initialX = 0; // Reset posisi awal
+}
 
-  // Tambahkan event listener untuk gesture
-  document.addEventListener("touchstart", onTouchStart);
-  document.addEventListener("touchmove", onTouchMove);
-  document.addEventListener("touchend", onTouchEnd);
+function handleDoubleTapEvent(event) {
+  if (selectedObject) {
+    // Hapus objek yang dipilih dari scene
+    scene.remove(selectedObject);
+    selectedObject = null; // Reset referensi
 
-  const onClicked = (e, selectItem, index) => {
-    // Reset OrbitControls
+    // Nonaktifkan OrbitControls
     orbitEnabled = false;
     controls.enabled = false;
-  
-    // Set indeks objek yang dipilih
-    itemSelectedIndex = index;
-  
-    // Update UI
-    for (let i = 0; i < models.length; i++) {
-      const el = document.querySelector(`#item` + i);
-      el.classList.remove("clicked");
-    }
-    e.target.classList.add("clicked");
-  
-    // Tampilkan kembali reticle
-    reticle.visible = true;
-    hitTestSourceRequested = true; // Aktifkan kembali hit test
-  };
+    console.log("Selected object deleted on double-tap.");
+  } else {
+    console.log("No object selected to delete.");
+  }
+}
+
+const onClicked = (e, selectItem, index) => {
+  // Reset OrbitControls
+  orbitEnabled = false;
+  controls.enabled = false;
+
+  // Set indeks objek yang dipilih
+  itemSelectedIndex = index;
+
+  // Update UI
+  for (let i = 0; i < models.length; i++) {
+    const el = document.querySelector(`#item` + i);
+    el.classList.remove("clicked");
+  }
+  e.target.classList.add("clicked");
+
+  // Tampilkan kembali reticle
+  reticle.visible = true;
+  hitTestSourceRequested = true; // Aktifkan kembali hit test
+};
+
+// Tambahkan event listener untuk gesture
+document.addEventListener("touchstart", onTouchStart);
+document.addEventListener("touchmove", onTouchMove);
+document.addEventListener("touchend", onTouchEnd);
+
   
 
   function setupFurnitureSelection() {

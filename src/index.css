@@ -136,7 +136,7 @@ code {
   cursor: pointer;
   z-index: 10; /* Ensure it's on top of other elements */
 }
-.delete-button{
+.add-more{
   position: absolute;
   top: 10px; /* Adjust as needed */
   right: 10px; /* Adjust as needed */
@@ -154,7 +154,7 @@ code {
 .back-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
-.delete-button {
+.add-more {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
