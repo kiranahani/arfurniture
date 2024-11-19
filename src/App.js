@@ -184,7 +184,18 @@ function setSelectedModelFromURL() {
   }
 
   let selectedObject = null;
+  function resetScene() {
+    // Hapus semua objek dalam scene
+    while (scene.children.length > 0) {
+      scene.remove(scene.children[0]);
+    }
 
+    // Inisialisasi ulang kamera, renderer, dan kontrol
+    init();
+
+    // Pastikan untuk memuat model baru setelah scene di-reset
+    onSelect();
+  }
 function onSelect() {
   const currentTime = performance.now();
 
@@ -349,6 +360,7 @@ function onSelect() {
       <button className="back-button" onClick={handleBackButton}>
         Back
       </button>
+      <button className="delete-button" onClick={resetScene}>Reset Scene</button>
 
       {hitTestVisible && (
         <div className="scanning-message">
