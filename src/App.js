@@ -33,9 +33,10 @@ function App() {
     "./Renata-Side-Table.glb",
     "./Altha-Chair.glb",
     "./Lulu-Chair.glb",
+    "./LoettaSofa.glb"
   ];
 
-  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   let items = [];
   let itemSelectedIndex = 0;
 
