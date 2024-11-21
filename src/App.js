@@ -28,15 +28,18 @@ function App() {
     "./High-Baack-Stool.glb",
     "./Indian-Barstool.glb",
     "./Lily-Side-Chair.glb",
-    "./jungle-side-table.glb",
+    "./Jungle-Side-Table.glb",
     "./Rama-Small-Round-Table.glb",
     "./Renata-Side-Table.glb",
     "./Altha-Chair.glb",
     "./Lulu-Chair.glb",
-    "./LoettaSofa.glb"
+    "./LoettaSofa.glb",
+    "./DidoStool.glb",
+    "./Lulu-Chair.glb",
+    "./RenataSquareCoffeTable.glb"
   ];
 
-  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   let items = [];
   let itemSelectedIndex = 0;
 
