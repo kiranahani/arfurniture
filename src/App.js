@@ -14,6 +14,7 @@ if (referrer) {
 } else {
     console.log("User mengakses langsung atau tidak ada referrer.");
 }
+
 function App() {
   let reticle;
   let hitTestSource = null;
@@ -43,11 +44,19 @@ function App() {
     "./Lulu-Chair.glb",
     "./LoettaSofa.glb",
     "./DidoStool.glb",
-    "./Lulu-Chair.glb",
-    "./RenataSquareCoffeTable.glb"
+    "./RenataSquareCoffeTable.glb",
+    "./Lula-Chair.glb",
+    "./Lula-Chair.glb",
+    "./GemmySideTable.glb",
+    "./Lulu2seater.glb",
+    "./LupitaChair.glb",
+    "./GemmySunTable.glb",
+    "./Renata-Big-Recta-Dining-Table.glb",
+    "./Renata-Big-Recta-Dining-Table.glb",
+    "./Lula-Chair.glb"
   ];
 
-  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   let items = [];
   let itemSelectedIndex = 0;
 
