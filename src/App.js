@@ -6,6 +6,14 @@ import { XREstimatedLight } from "three/examples/jsm/webxr/XREstimatedLight";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"; // Tambahkan OrbitControls
 import { useState, useEffect, useRef } from "react";
 
+const referrer = document.referrer;
+
+// Periksa apakah ada referrer dan tampilkan di console
+if (referrer) {
+    console.log(`User datang dari: ${referrer}`);
+} else {
+    console.log("User mengakses langsung atau tidak ada referrer.");
+}
 function App() {
   let reticle;
   let hitTestSource = null;
