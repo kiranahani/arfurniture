@@ -112,11 +112,11 @@ function setSelectedModelFromURL() {
     "https://loettaliving.com/product/rama-small-dt": 13,
     "https://loettaliving.com/product/rama-big-dit": 6,
     "https://loettaliving.com/product/renata-square-cofe-tabble": 19,
-    "https://loettaliving.com/product/renata-recta-cofe-table": 27,
+    "https://loettaliving.com/product/renata-recta-cofe-table": 28,
     "https://loettaliving.com/product/round-tabble": 1,
-    "https://loettaliving.com/product/dhea-recta-cofe-table": 26,
+    "https://loettaliving.com/product/dhea-recta-cofe-table": 27,
     "https://loettaliving.com/product/almira-bar-tabble": 4,
-    "https://loettaliving.com/product/lulu-2-seater-sofa": 23,
+    "https://loettaliving.com/product/lulu-2-seater-sofa": 24,
     "https://loettaliving.com/product/loetta-sofa": 17,
     "https://loettaliving.com/product/rheina-chair": 0,
     "https://loettaliving.com/product/lulu-chair": 16,
@@ -128,9 +128,10 @@ function setSelectedModelFromURL() {
     "https://loettaliving.com/product/indian-bar-stool": 10,
     "https://loettaliving.com/product/high-back-stool": 9,
     "https://loettaliving.com/product/dona-stool" : 18,
-    "https://loettaliving.com/product/gemmy-side-table" : 22,
-    "https://loettaliving.com/product/lupita-chair": 24,
-    "https://loettaliving.com/product/gemmy-sun-bed": 25,
+    "https://loettaliving.com/product/gemmy-side-table" : 23,
+    "https://loettaliving.com/product/lupita-chair": 25,
+    "https://loettaliving.com/product/gemmy-sun-bed": 26,
+    "https://loettaliving.com/product/dona-stool-2": 29
 
   };
 
