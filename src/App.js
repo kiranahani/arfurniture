@@ -47,6 +47,7 @@ function App() {
     "./RenataSquareCoffeTable.glb",
     "./Lula-Chair.glb",
     "./Lula-Chair.glb",
+    "./Lula-Chair.glb",
     "./GemmySideTable.glb",
     "./Lulu2seater.glb",
     "./LupitaChair.glb",
@@ -99,47 +100,56 @@ function selectModelByIndex(index) {
 }
 
 function setSelectedModelFromURL() {
-  const currentURL = window.location.href;
-  
+  const referrer = document.referrer;
+
+  // Daftar URL dan indeks model yang sesuai
   const urlToIndex = {
     "https://loettaliving.com/product/renata-side-table": 14,
     "https://loettaliving.com/product/jungle-side-table": 12,
-    "https://loettaliving.com/product/deva-side-table": 8,
+    "https://loettaliving.com/product/deva-side-table":8,
     "https://loettaliving.com/product/renata-square-dining-table": 2,
     "https://loettaliving.com/product/renata-big-recta-dt": 5,
-    "https://loettaliving.com/product/rama-small-dt": 6,
-    "https://loettaliving.com/product/rama-big-dit": 7,
-    "https://loettaliving.com/product/round-tabble-2a": 1,
-    "https://loettaliving.com/product/renata-square-cofe-tabble": 3,
-    "https://loettaliving.com/product/renata-recta-cofe-table": 4,
-    "https://loettaliving.com/product/round-tabble": 9,
-    "https://loettaliving.com/product/dhea-recta-cofe-table": 10,
-    "https://loettaliving.com/product/almira-bar-tabble": 11,
-    "https://loettaliving.com/product/lulu-2-seater-sofa": 13,
-    "https://loettaliving.com/product/loetta-sofa": 15,
-    "https://loettaliving.com/product/lula-tabble": 16,
+    "https://loettaliving.com/product/rama-small-dt": 13,
+    "https://loettaliving.com/product/rama-big-dit": 6,
+    "https://loettaliving.com/product/renata-square-cofe-tabble": 19,
+    "https://loettaliving.com/product/renata-recta-cofe-table": 27,
+    "https://loettaliving.com/product/round-tabble": 1,
+    "https://loettaliving.com/product/dhea-recta-cofe-table": 26,
+    "https://loettaliving.com/product/almira-bar-tabble": 4,
+    "https://loettaliving.com/product/lulu-2-seater-sofa": 23,
+    "https://loettaliving.com/product/loetta-sofa": 17,
     "https://loettaliving.com/product/rheina-chair": 0,
-    "https://loettaliving.com/product/lulu-chair": 17,
-    "https://loettaliving.com/product/lula-chair": 18,
-    "https://loettaliving.com/product/lily-side-chair": 19,
-    "https://loettaliving.com/product/lala-chair": 20,
-    "https://loettaliving.com/product/altha-chair": 21,
-    "https://loettaliving.com/product/alma-chair": 22,
-    "https://loettaliving.com/product/indian-bar-stool": 23,
-    "https://loettaliving.com/product/high-back-stool": 24,
+    "https://loettaliving.com/product/lulu-chair": 16,
+    "https://loettaliving.com/product/lula-chair": 20,
+    "https://loettaliving.com/product/lily-side-chair": 11,
+    "https://loettaliving.com/product/lala-chair": 3,
+    "https://loettaliving.com/product/altha-chair": 15,
+    "https://loettaliving.com/product/alma-chair": 7,
+    "https://loettaliving.com/product/indian-bar-stool": 10,
+    "https://loettaliving.com/product/high-back-stool": 9,
+    "https://loettaliving.com/product/dona-stool" : 18,
+    "https://loettaliving.com/product/gemmy-side-table" : 22,
+    "https://loettaliving.com/product/lupita-chair": 24,
+    "https://loettaliving.com/product/gemmy-sun-bed": 25,
+
   };
 
-  const index = urlToIndex[currentURL];
+
+  const index = urlToIndex[referrer];
   if (index !== undefined) {
-    selectModelByIndex(index); // Pilih model berdasarkan URL
+    selectModelByIndex(index); 
+  } else {
+    console.log("Model tidak ditemukan untuk URL ini");
   }
 }
 
-  useEffect(() => {
-    init();
-    setupFurnitureSelection();
-    animate();
-  }, []);
+useEffect(() => {
+  init();
+  setupFurnitureSelection();
+  animate();
+  setSelectedModelFromURL(); 
+}, []);
+
 
   function init() {
     let myCanvas = document.getElementById("canvas");
