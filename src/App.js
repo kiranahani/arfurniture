@@ -47,14 +47,14 @@ function App() {
     "./RenataSquareCoffeTable.glb",
     "./Lula-Chair.glb",
     "./Lula-Chair.glb",
-    "./Lula-Chair.glb",
+    "./RumiChair.glb",
     "./GemmySideTable.glb",
     "./Lulu2seater.glb",
     "./LupitaChair.glb",
     "./GemmySunTable.glb",
     "./Renata-Big-Recta-Dining-Table.glb",
-    "./Renata-Big-Recta-Dining-Table.glb",
-    "./Lula-Chair.glb"
+    "./RenataBigRectaDinningTable.glb",
+    "./DonaStool.glb"
   ];
 
   let modelScaleFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
