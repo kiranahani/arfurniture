@@ -46,7 +46,7 @@ function App() {
     "./DidoStool.glb",
     "./RenataSquareCoffeTable.glb",
     "./Lula-Chair.glb",
-    "./Lula-Chair.glb",
+    "./ZeezeeOttoman.glb",
     "./RumiChair.glb",
     "./GemmySideTable.glb",
     "./Lulu2seater.glb",
