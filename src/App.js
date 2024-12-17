@@ -131,8 +131,8 @@ function setSelectedModelFromURL() {
     "https://loettaliving.com/product/gemmy-side-table" : 23,
     "https://loettaliving.com/product/lupita-chair": 25,
     "https://loettaliving.com/product/gemmy-sun-bed": 26,
-    "https://loettaliving.com/product/dona-stool-2": 29
-
+    "https://loettaliving.com/product/dona-stool-2": 29,
+    "https://test-web-weld-psi.vercel.app/": 2
   };
 
 
